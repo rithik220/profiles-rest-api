@@ -4,6 +4,7 @@ from rest_framework import status
 from rest_framework import viewsets
 
 from profiles_api import serializers
+from profiles_api import models
 
 
 class HelloAPIView(APIView):
@@ -44,6 +45,7 @@ class HelloAPIView(APIView):
 
 class HelloViewSet(viewsets.ViewSet):
     serializer_class = serializers.HelloSerializer
+
     def list(self, request):
         a_viewset = [
             'Uses actions (list, create, retrieve, uodate, partial_update)',
@@ -73,7 +75,12 @@ class HelloViewSet(viewsets.ViewSet):
         return Response({'http_method': 'PUT'})
 
     def partial_update(self, request, pk=None):
-        return Response({'http_method': 'PATCH'}) 
+        return Response({'http_method': 'PATCH'})
 
     def detroy(self, request, pk=None):
-        return Response({'http_method': 'DELETE'})        
+        return Response({'http_method': 'DELETE'})
+
+
+class UserProfileViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.Userprofileserializer
+    queryset = models.UserProfile.objects.all()
